@@ -1,0 +1,1022 @@
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-deny-all
+  namespace: k8s-preprod
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress: []
+  egress: []
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-cluster-ingress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-ingress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-cluster-ingress-cp
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-ingress-cp"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-ecdf"
+  - to:
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-cluster-egress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-egress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-cluster-egress-cp
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-egress-cp"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-dashboard-ingress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-dashboard-ingress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock: 
+        cidr: 192.168.142.163/32
+    - ipBlock: 
+        cidr: 192.168.142.164/32
+    - ipBlock: 
+        cidr: 192.168.239.41/32
+    - ipBlock: 
+        cidr: 192.168.239.24/32
+    - ipBlock: 
+        cidr: 192.168.239.73/32
+    - ipBlock: 
+        cidr: 192.168.239.38/32
+    - ipBlock: 
+        cidr: 192.168.239.68/32
+    - ipBlock: 
+        cidr: 192.168.239.76/32
+    - ipBlock: 
+        cidr: 192.168.239.66/32
+    - ipBlock: 
+        cidr: 192.168.239.27/32
+    ports:
+      - protocol: TCP
+        port: 9000
+      - protocol: TCP
+        port: 9001
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-apisix-dashboard-egress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-dashboard-egress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock: 
+        cidr: 192.168.142.163/32
+    - ipBlock: 
+        cidr: 192.168.142.164/32
+    - ipBlock: 
+        cidr: 192.168.239.41/32
+    - ipBlock: 
+        cidr: 192.168.239.24/32
+    - ipBlock: 
+        cidr: 192.168.239.73/32
+    - ipBlock: 
+        cidr: 192.168.239.38/32
+    - ipBlock: 
+        cidr: 192.168.239.68/32
+    - ipBlock: 
+        cidr: 192.168.239.76/32
+    - ipBlock: 
+        cidr: 192.168.239.66/32
+    - ipBlock: 
+        cidr: 192.168.239.27/32
+    ports:
+      - protocol: TCP
+        port: 9000
+      - protocol: TCP
+        port: 9001
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-etcd-cluster
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-etcd"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-dashboard-ingress"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-dashboard-egress"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-etcd"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-rabbit-cluster
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: "rabbitmqcluster"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqcluster"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqcluster"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-rabbit-cluster-v2
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: "rabbitmqclusterv2"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqclusterv2"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqclusterv2"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-redis-cluster-cache
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "redis-cluster-cache"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-cache"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-cache"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-redis-cluster-ecdf
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "redis-cluster-ecdf"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-ecdf"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-ecdf"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-system
+  namespace: k8s-preprod
+spec:
+  podSelector: {}
+  policyTypes:
+  - Egress
+  egress:
+  - ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.188/32
+    ports:
+      - protocol: TCP
+        port: 8081
+      - protocol: TCP
+        port: 8086
+  - to: 
+    - namespaceSelector: 
+        matchLabels:
+          kubernetes.io/metadata.name: "kube-system"
+    ports:
+      - protocol: TCP
+        port: 53
+      - protocol: UDP
+        port: 53
+  - to: 
+    - namespaceSelector: 
+        matchLabels:
+          kubernetes.io/metadata.name: "istio-system"
+      podSelector: 
+        matchLabels:
+          app: "istiod"
+    ports:
+      - protocol: TCP
+        port: 15012
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-workload-domain
+  namespace: k8s-preprod
+spec:
+  podSelector: 
+    matchLabels: 
+      role-domain: "true"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - to:
+    - ipBlock: 
+        cidr: 192.168.141.34/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.35/32
+    ports:
+      - protocol: TCP
+        port: 27017
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.46/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.42/32
+    ports:
+      - protocol: TCP
+        port: 9999
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.39/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.241/32
+    ports:
+      - protocol: TCP
+        port: 9042
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.247/32
+    ports:
+      - protocol: TCP
+        port: 9081
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.66/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.67/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.98/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to:
+    - ipBlock:
+        cidr: 192.168.239.37/32
+  - to:
+    - ipBlock:
+        cidr: 192.168.142.131/32
+    ports:
+      - protocol: TCP
+        port: 9092
+  - to:
+    - ipBlock:
+        cidr: 192.168.142.130/32
+    ports:
+      - protocol: TCP
+        port: 9092
+  - to:
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqcluster"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqclusterv2"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-cache"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-workload-legacy
+  namespace: k8s-preprod
+spec:
+  podSelector: 
+    matchLabels: 
+      role-legacy: "true"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - to:
+    - ipBlock: 
+        cidr: 192.168.141.34/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.35/32
+    ports:
+      - protocol: TCP
+        port: 27017
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.46/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.42/32
+    ports:
+      - protocol: TCP
+        port: 9999
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.39/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.241/32
+    ports:
+      - protocol: TCP
+        port: 9042
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.247/32
+    ports:
+      - protocol: TCP
+        port: 9081
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.66/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.67/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.98/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqcluster"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqclusterv2"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-cache"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-allow-workload-orchestration
+  namespace: k8s-preprod
+spec:
+  podSelector: 
+    matchLabels: 
+      role-orchestration: "true"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - to:
+    - ipBlock: 
+        cidr: 192.168.141.34/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.35/32
+    ports:
+      - protocol: TCP
+        port: 27017
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.46/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.42/32
+    ports:
+      - protocol: TCP
+        port: 9999
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.141.39/32
+    ports:
+      - protocol: TCP
+        port: 5432
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.241/32
+    ports:
+      - protocol: TCP
+        port: 9042
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.247/32
+    ports:
+      - protocol: TCP
+        port: 9081
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.66/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.67/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.142.98/32
+    ports:
+      - protocol: TCP
+        port: 3306
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqcluster"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/name: "rabbitmqclusterv2"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "redis-cluster-cache"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-ingress-cp"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          app.kubernetes.io/instance: "apisix-egress-cp"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-common-apisix-ingress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-ingress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - ipBlock: 
+        cidr: 192.168.244.194/32
+    - ipBlock: 
+        cidr: 192.168.244.195/32
+    - ipBlock: 
+        cidr: 192.168.142.163/32
+    - ipBlock: 
+        cidr: 192.168.142.164/32
+    - ipBlock: 
+        cidr: 192.168.143.69/32
+    - ipBlock: 
+        cidr: 192.168.143.70/32
+    - ipBlock: 
+        cidr: 192.168.239.41/32
+    - ipBlock: 
+        cidr: 192.168.239.24/32
+    - ipBlock: 
+        cidr: 192.168.239.73/32
+    - ipBlock: 
+        cidr: 192.168.239.38/32
+    - ipBlock: 
+        cidr: 192.168.239.68/32
+    - ipBlock: 
+        cidr: 192.168.239.76/32
+    - ipBlock: 
+        cidr: 192.168.239.66/32
+    - ipBlock: 
+        cidr: 192.168.239.27/32
+    - ipBlock: 
+        cidr: 192.168.240.215/32
+    - ipBlock: 
+        cidr: 192.168.240.218/32
+    - ipBlock: 
+        cidr: 192.168.240.214/32
+    - ipBlock: 
+        cidr: 192.168.240.216/32
+    - ipBlock: 
+        cidr: 192.168.240.217/32
+    - ipBlock: 
+        cidr: 192.168.240.213/32
+    ports:
+      - protocol: TCP
+        port: 9080
+      - protocol: TCP
+        port: 9443
+  egress:
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  - to: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-common-apisix-ingress-cp
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-ingress-cp"
+  policyTypes:
+  - Ingress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app: "authentication"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app: "authenticationfuture"
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-common-apisix-egress
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-egress"
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-domain: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-legacy: "true"
+  - from: 
+    - podSelector: 
+        matchLabels:
+          role-orchestration: "true"
+  egress:
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.239.37/32
+    ports:
+      - protocol: TCP
+        port: 9444
+      - protocol: TCP
+        port: 6868
+      - protocol: TCP
+        port: 9443
+      - protocol: TCP
+        port: 1600
+      - protocol: TCP
+        port: 9445
+      - protocol: TCP
+        port: 9446
+      - protocol: TCP
+        port: 8443
+      - protocol: TCP
+        port: 8447
+      - protocol: TCP
+        port: 2307
+      - protocol: TCP
+        port: 6838
+      - protocol: TCP
+        port: 9092 
+  - to: 
+    - ipBlock: 
+        cidr: 192.168.241.66/32
+    ports:
+      - protocol: TCP
+        port: 8200
+---
+# Source: netpol/templates/netpol.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: netpol-group-common-apisix-egress-cp
+  namespace: k8s-preprod
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/instance: "apisix-egress-cp"
+  policyTypes:
+  - Ingress
+  ingress:
+  - from: 
+    - podSelector: 
+        matchLabels:
+          app: "oes"

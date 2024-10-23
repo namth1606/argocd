@@ -1,0 +1,54 @@
+namespace: k8s-preprod
+apisix_ingress: 'app.kubernetes.io/instance: "apisix-ingress"'
+apisix_egress: 'app.kubernetes.io/instance: "apisix-egress"'
+apisix_ingress_cp: 'app.kubernetes.io/instance: "apisix-ingress-cp"'
+apisix_egress_cp: 'app.kubernetes.io/instance: "apisix-egress-cp"'
+redis_cluster_cache: 'app.kubernetes.io/instance: "redis-cluster-cache"'
+redis_cluster_ecdf: 'app.kubernetes.io/instance: "redis-cluster-ecdf"'
+rabbit_cluster: 'app.kubernetes.io/name: "rabbitmqcluster"'
+rabbit_cluster_v2: 'app.kubernetes.io/name: "rabbitmqclusterv2"'
+ingress_dashboard: 'app.kubernetes.io/instance: "apisix-dashboard-ingress"'
+egress_dashboard: 'app.kubernetes.io/instance: "apisix-dashboard-egress"'
+etcd: 'app.kubernetes.io/instance: "apisix-etcd"'
+h2db: 192.168.142.241
+vkyc: 192.168.142.66
+vault: 192.168.241.66
+mysql: 192.168.142.67
+iwpdb: 192.168.142.98
+nexus: 192.168.142.188
+artemis: 192.168.142.247
+mongodb: 192.168.141.35
+pgpool: 192.168.141.42
+mongo: 192.168.141.35
+app_haproxy: 192.168.239.37
+postgres_read: 192.168.141.46
+postgres_write: 192.168.141.39
+kafka_node1: 192.168.142.131
+kafka_node2: 192.168.142.130
+postgres_log: 
+ - 192.168.141.34 
+pi_haproxy:
+  - 192.168.244.194
+  - 192.168.244.195
+po_haproxy:
+  - 192.168.142.163
+  - 192.168.142.164
+pe_haproxy:
+  - 192.168.143.69
+  - 192.168.143.70
+gkeapp:
+  - 192.168.239.41
+  - 192.168.239.24
+  - 192.168.239.73
+  - 192.168.239.38
+  - 192.168.239.68
+  - 192.168.239.76
+  - 192.168.239.66
+  - 192.168.239.27
+gkeint: 
+  - 192.168.240.215
+  - 192.168.240.218
+  - 192.168.240.214
+  - 192.168.240.216
+  - 192.168.240.217
+  - 192.168.240.213 
