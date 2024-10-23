@@ -1,4 +1,4 @@
-namespace: k8s-preprod
+namespace: default
 apisix_ingress: 'app.kubernetes.io/instance: "apisix-ingress"'
 apisix_egress: 'app.kubernetes.io/instance: "apisix-egress"'
 apisix_ingress_cp: 'app.kubernetes.io/instance: "apisix-ingress-cp"'
